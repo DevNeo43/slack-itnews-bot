@@ -1,3 +1,4 @@
+import os
 import requests
 import feedparser
 from slack_sdk import WebClient
@@ -20,7 +21,6 @@ def get_it_news():
 
     return news_list
 
-
 def send_slack_message(news, slack_token, channel):
     client = WebClient(token=slack_token)
 
@@ -30,8 +30,6 @@ def send_slack_message(news, slack_token, channel):
 
     # 뉴스 제목과 링크 추가
     news_text = f'<{news["link"]}|{news["headline"]}>'
-
-
 
     try:
         #뉴스기사 전송
@@ -44,8 +42,11 @@ def send_slack_message(news, slack_token, channel):
 
 def job():
     news_list = get_it_news()
+    slack_token = os.environ["SLACK_TOKEN"]
+    channel = "rss_feed"
+
     for news in news_list:
-        send_slack_message(news, "xoxb-5102656250227-5099880916901-9w8RPxdxLUujwxT8utqK6ca3", "rss_feed")
+        send_slack_message(news, slack_token, channel)
 
 schedule.every().day.at("08:00").do(job)
 
