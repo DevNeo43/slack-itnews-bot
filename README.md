@@ -11,5 +11,11 @@ Please contact whaterbum@gmail.com for a personal invitation to the Slack channe
 - AWS EC2 
 - Slack API
 
+## Release-note
+
+### v0.1
+- 첫 번째 릴리즈입니다. 
+- 매일 오전 8시에(KST) ZDnet itnews를 크롤링 합니다.
+
 ## Author
 devneo43@gmail.com
