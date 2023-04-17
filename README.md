@@ -17,5 +17,9 @@ Please contact whaterbum@gmail.com for a personal invitation to the Slack channe
 - 첫 번째 릴리즈입니다. 
 - 매일 오전 8시에(KST) ZDnet itnews를 크롤링 합니다.
 
+### v0.2
+- 환경변수 설정 에러를 수정했습니다. 
+- 뉴스 기사 전송 후, 채널 참여자를 멘션하는 기능을 추가했습니다. 
+
 ## Author
 devneo43@gmail.com
