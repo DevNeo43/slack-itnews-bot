@@ -7,6 +7,7 @@ from datetime import datetime
 import schedule
 import time
 
+# 0은 출력, 1은 미출력
 flag = 0
 
 def get_it_news():
@@ -37,10 +38,25 @@ def send_slack_message(news, slack_token, channel):
             channel=channel,
             text=date_text + '\n' + news_text
         )
+
+    except SlackApiError as e:
+        print(f"Error: {e}")
+
+def send_final_mention(slack_token, channel):
+    client = WebClient(token=slack_token)
+
+    try:
+        response = client.chat_postMessage(
+            channel=channel,
+            text="<!channel>"
+        )
+
     except SlackApiError as e:
         print(f"Error: {e}")
 
 def job():
+    global flag
+
     news_list = get_it_news()
     slack_token = os.environ["SLACK_TOKEN"]
     channel = "rss_feed"
@@ -48,7 +64,10 @@ def job():
     for news in news_list:
         send_slack_message(news, slack_token, channel)
 
-schedule.every().day.at("08:00").do(job)
+    send_final_mention(slack_token, channel)
+
+job()
+#schedule.every().day.at("08:00").do(job)
 
 while True:
     schedule.run_pending()
